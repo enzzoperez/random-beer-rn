@@ -61,3 +61,6 @@ buck-out/
 #ENV VARS
 .env.development
 .env.production
+
+# Locks
+yarn.lock
