@@ -6,6 +6,7 @@ import {
   View,
   Text,
   StatusBar,
+  TextInput
 } from 'react-native';
 
 import {
