@@ -12,8 +12,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo \"[Husky] pre-commit\""
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": "eslint --fix"
   },
   "dependencies": {
     "react": "16.13.1",
@@ -28,7 +31,9 @@
     "eslint": "^6.5.1",
     "husky": "^4.3.6",
     "jest": "^25.1.0",
+    "lint-staged": "^10.5.3",
     "metro-react-native-babel-preset": "^0.59.0",
+    "prettier": "^2.2.1",
     "react-test-renderer": "16.13.1"
   },
   "jest": {
