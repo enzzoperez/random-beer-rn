@@ -6,7 +6,7 @@ import {
   View,
   Text,
   StatusBar,
-  TextInput
+  FlatList,
 } from 'react-native';
 
 import {
