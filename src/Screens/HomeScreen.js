@@ -1,10 +1,10 @@
 import React from 'react';
-import {Button, FlatList, Text, View} from 'react-native';
+import {Button, FlatList, Text, TouchableOpacity, View} from 'react-native';
 import {useQuery} from 'react-query';
 import {routes} from '../utils/routes';
 import {getBirras} from '../utils/services';
 
-const HomePage = ({navigation}) => {
+const HomeScreen = ({navigation}) => {
   const {data, error, isLoading} = useQuery('/beers', getBirras);
   const itemStyle = {color: 'black', fontSize: 26};
   //   useEffect(() => {
@@ -28,9 +28,14 @@ const HomePage = ({navigation}) => {
           data={data}
           renderItem={({item}) => {
             return (
-              <Text style={itemStyle}>
-                {item.name} - {item.id}
-              </Text>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate(routes.detailsPage, {id: item.id})
+                }>
+                <Text style={itemStyle}>
+                  {item.name} - {item.id}
+                </Text>
+              </TouchableOpacity>
             );
           }}
         />
@@ -44,4 +49,4 @@ const HomePage = ({navigation}) => {
   );
 };
 
-export default HomePage;
+export default HomeScreen;

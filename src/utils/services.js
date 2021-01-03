@@ -8,3 +8,12 @@ export const getBirras = async () => {
     throw error.response;
   }
 };
+
+export const getABirra = async ({queryKey}) => {
+  try {
+    const data = await fetch(`${Config.API_URL}beers/${queryKey[1]}`);
+    return data.json();
+  } catch (error) {
+    return error.response;
+  }
+};
