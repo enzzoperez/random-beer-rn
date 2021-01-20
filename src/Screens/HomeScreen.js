@@ -7,9 +7,6 @@ import {getBirras} from '../utils/services';
 const HomeScreen = ({navigation}) => {
   const {data, error, isLoading} = useQuery('/beers', getBirras);
   const itemStyle = {color: 'black', fontSize: 26};
-  //   useEffect(() => {
-  //     getBirras().then((res) => console.log('en usefect', res));
-  //   }, []);
 
   if (isLoading) {
     return <Text>Cargando...</Text>;
@@ -20,7 +17,7 @@ const HomeScreen = ({navigation}) => {
   }
 
   return (
-    <View>
+    <React.Fragment>
       <Text>Home page {data && data.length}</Text>
       {data && (
         <FlatList
@@ -45,7 +42,7 @@ const HomeScreen = ({navigation}) => {
         title="Ir a detail"
         onPress={() => navigation.navigate(routes.detailsPage)}
       />
-    </View>
+    </React.Fragment>
   );
 };
 
