@@ -6,20 +6,20 @@ import {render, fireEvent} from '@testing-library/react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {DetailsScreen, HomeScreen} from '../src/Screens';
 import {routes} from '../src/utils/routes';
+import axios from 'axios';
+import {getABirra, getBirras} from '../src/utils/services';
 
 // Silence the warning https://github.com/facebook/react-native/issues/11094#issuecomment-263240420
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 
-beforeEach(() => {
-  fetch.resetMocks();
-});
+jest.mock('axios');
 
 //Mock api call
 
 it('renders correctly', async () => {
-  fetch.mockResponses(
-    [
-      JSON.stringify([
+  axios.get
+    .mockResolvedValueOnce({
+      data: [
         {
           id: 1,
           name: 'Buzz item 1',
@@ -28,10 +28,10 @@ it('renders correctly', async () => {
           id: 2,
           name: 'Buzz2',
         },
-      ]),
-    ],
-    [
-      JSON.stringify([
+      ],
+    })
+    .mockResolvedValue({
+      data: [
         {
           id: 1,
           name: 'Buzz item 1',
@@ -40,9 +40,30 @@ it('renders correctly', async () => {
           image_url:
             'https://assets.puzzlefactory.pl/puzzle/300/056/original.jpg',
         },
-      ]),
-    ],
-  );
+      ],
+    });
+
+  // getBirras.mockResolvedValue([
+  //   {
+  //     id: 1,
+  //     name: 'Buzz item 1',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Buzz2',
+  //   },
+  // ]);
+
+  // getABirra.mockResolvedValue([
+  //   {
+  //     id: 1,
+  //     name: 'Buzz item 1',
+  //     tagline: 'My tagline detail',
+  //     description: 'Description for detail',
+  //     image_url: 'https://assets.puzzlefactory.pl/puzzle/300/056/original.jpg',
+  //   },
+  // ]);
+
   const Stack = createStackNavigator();
 
   const component = (
@@ -64,9 +85,6 @@ it('renders correctly', async () => {
 
   fireEvent(itemSelected, 'press');
 
-  const nameItem = await findByText(/item 1/i);
   const nameTagline = await findByText(/tagline detail/i);
-
-  expect(nameItem).toBeTruthy();
   expect(nameTagline).toBeTruthy();
 });

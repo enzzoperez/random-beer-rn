@@ -1,9 +1,10 @@
 import Config from 'react-native-config';
+import axios from 'axios';
 
 export const getBirras = async () => {
   try {
-    const data = await fetch(`${Config.API_URL}/beers`);
-    return data.json();
+    const data = await axios.get(`${Config.API_URL}/beers`);
+    return data.data;
   } catch (error) {
     throw error.response;
   }
@@ -11,8 +12,8 @@ export const getBirras = async () => {
 
 export const getABirra = async (id) => {
   try {
-    const data = await fetch(`${Config.API_URL}beers/${id}`);
-    return data.json();
+    const data = await axios.get(`${Config.API_URL}beers/${id}`);
+    return data.data;
   } catch (error) {
     return error.response;
   }
