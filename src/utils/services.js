@@ -9,9 +9,9 @@ export const getBirras = async () => {
   }
 };
 
-export const getABirra = async ({queryKey}) => {
+export const getABirra = async (id) => {
   try {
-    const data = await fetch(`${Config.API_URL}beers/${queryKey[1]}`);
+    const data = await fetch(`${Config.API_URL}beers/${id}`);
     return data.json();
   } catch (error) {
     return error.response;
