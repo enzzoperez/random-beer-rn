@@ -1,20 +1,20 @@
-import React from 'react';
-import {Button, FlatList, Text, TouchableOpacity, View} from 'react-native';
-import {useQuery} from 'react-query';
+import React, {useEffect, useState} from 'react';
+import {Button, FlatList, Text, TouchableOpacity} from 'react-native';
 import {routes} from '../utils/routes';
 import {getBirras} from '../utils/services';
 
 const HomeScreen = ({navigation}) => {
-  const {data, error, isLoading} = useQuery('/beers', getBirras);
+  // const {data, error, isLoading} = useQuery('/beers', getBirras);
+  const [data, setData] = useState();
   const itemStyle = {color: 'black', fontSize: 26};
 
-  if (isLoading) {
-    return <Text>Cargando...</Text>;
-  }
-
-  if (error) {
-    return <Text>Error al cargas birras</Text>;
-  }
+  useEffect(() => {
+    async function fetcher() {
+      const dataBirras = await getBirras();
+      setData(dataBirras);
+    }
+    fetcher();
+  }, []);
 
   return (
     <React.Fragment>

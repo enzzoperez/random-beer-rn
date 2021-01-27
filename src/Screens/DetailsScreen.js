@@ -1,13 +1,27 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, Text, View} from 'react-native';
 import {useQuery} from 'react-query';
 import {getABirra} from '../utils/services';
 
 const DetailsScreen = ({route, navigation}) => {
   const {id} = route.params;
+  const [data, setData] = useState();
 
-  const {data, error, isLoading} = useQuery(['detailBirra', id], getABirra);
-  console.log('daaa', data, error, isLoading);
+  // const {data, error, isLoading} = useQuery(['detailBirra', id], getABirra);
+
+  useEffect(
+    function didMount() {
+      async function fetcher() {
+        const dataBirra = await getABirra(id);
+        setData(dataBirra);
+      }
+      if (id) {
+        fetcher();
+      }
+    },
+    [id],
+  );
+
   return (
     <View style={{color: 'black'}}>
       {data && (
